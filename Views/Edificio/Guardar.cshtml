@@ -1,0 +1,31 @@
+﻿@model EdificioModel
+@{
+    ViewData["Title"] = "Guardar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-header">
+    Agregar edificio
+</div>
+<div class="card-body justify-content-center">
+    <form asp-action="Guardar" asp-controller="Edificio" method="post">
+        <div class="col-md-4 mb-3">
+            <label for="Name">Nombre</label>
+            <input type="text" asp-for="Nombre" class=" form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-4 mb-3">
+            <label>Descripcion</label>
+            <input type="text" asp-for="Descripcion" class="form-control" />
+            <span asp-validation-for="Descripcion" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-4 mb-3">
+            <button type="submit" class="btn mb-3">Guardar</button>
+            <button asp-action="Listar" asp-controller="Edificio" class="btn mb-3">Cancelar</button>
+        </div>
+    </form>
+</div>
+
+
