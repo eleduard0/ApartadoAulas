@@ -1,0 +1,60 @@
+﻿@model ApartadoAulas.Models.InstalacionModel;
+@{
+    ViewData["Title"] = "Guardar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-dm-6">
+        <div class="card-header">
+            Guardar Instalacion
+        </div>
+        <div class="card-body">
+
+            <form asp-action="Guardar" asp-controller="Instalacion" method="post">
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Nombre del Aula</label>
+                    <input type="text" asp-for="Nombre" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Descripción del Aula</label>
+                    <input type="text" asp-for="Descripcion" class="form-control" />
+                </div>
+
+
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Nombre del Edificio</label>
+                    <select asp-for="refEdificio.IdEdificio" class="form-control"
+                    asp-items="@(ViewBag.Lista!=null?new SelectList(ViewBag.Lista,"Value","Text"):new List<SelectListItem>())">
+                        <option value="">Seleccione el Edificio</option>
+
+                    </select>
+                    
+                    
+                    
+                    
+                    @*<select asp-for="refEdificio.IdEdificio" class="form-control">
+                        <option value="">Seleccione un edificio...</option>
+                        @if (ViewBag.Edificios != null)
+                        {
+                            @foreach (var edificio in ViewBag.Edificios)
+                            {
+                                <option value="@edificio.IdEdificio">@edificio.Nombre</option>
+                            }
+                        }
+                    </select>*@
+                </div>
+
+                
+             
+
+                <div class="col-md-4 mb3">
+                    <button type="submit" class="btn btn-primary mb-3">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

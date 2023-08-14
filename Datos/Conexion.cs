@@ -1,4 +1,5 @@
-﻿namespace ApartadoAulas.Datos
+﻿using System.Data.SqlClient;
+namespace ApartadoAulas.Datos
 {
     public class Conexion
     {
