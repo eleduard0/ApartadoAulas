@@ -8,8 +8,8 @@ namespace ApartadoAulas.Models
         public int IdInstalacion { get; set; }
         public string Nombre { get; set;}
         public string Descripcion { get; set;}
-        [Display(Name = "Edificio")]
-        [BindNever]
+       
+        
         public EdificioModel refEdificio { get; set; }
 
 
