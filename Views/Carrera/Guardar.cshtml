@@ -1,8 +1,22 @@
-﻿
+﻿@model CarreraModel
 @{
     ViewData["Title"] = "Guardar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Guardar</h1>
+<h1>Agregar Carrera</h1>
+<div class="card-body justify-content-center">
+    <form asp-action="Guardar" asp-controller="Carrera" method="post">
+        <div class="col-md-4 mb-3">
+            <label for="Name">Nombre</label>
+            <input type="text" asp-for="Nombre" class=" form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-4 mb-3">
+            <button type="submit" class="btn mb-3">Guardar</button>
+            <button asp-action="Listar" asp-controller="Carrera" class="btn mb-3">Cancelar</button>
+        </div>
+    </form>
+</div>
 

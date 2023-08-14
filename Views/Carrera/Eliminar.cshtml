@@ -1,8 +1,22 @@
-﻿
+﻿@model CarreraModel
 @{
     ViewData["Title"] = "Eliminar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Eliminar</h1>
+<h1>Eliminar Carrera</h1>
+<div class="card-body justify-content-center">
+    <form asp-action="Eliminar" asp-controller="Carrera" method="post">
+        <input asp-for="IdCarrera" type="hidden" class="form-control" />
+        <div class="alert alert-danger" role="alert">
+            ¿Estas seguro de eliminar la Carrera: @Html.DisplayTextFor(m=>m.Nombre)?
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <button type="submit" class="btn btn-danger mb-3 btn-sn">Eliminar</button> <br />
+            <a asp-action="Listar" asp-controller="Carrera" class="btn btn-warning btn-sn">Volver a la lista</a>
+
+        </div>
+    </form>
+</div>
 

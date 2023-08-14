@@ -91,7 +91,7 @@ namespace ApartadoAulas.Datos
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("sp_EditarCarrera", conexion);
-                    cmd.Parameters.AddWithValue("IdEdificio", model.IdCarrera);
+                    cmd.Parameters.AddWithValue("IdCarrera", model.IdCarrera);
                     cmd.Parameters.AddWithValue("Nombre", model.Nombre);
                     cmd.CommandType = CommandType.StoredProcedure;
 
