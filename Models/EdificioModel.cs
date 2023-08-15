@@ -6,9 +6,9 @@ namespace ApartadoAulas.Models
     {
         public int IdEdificio { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        public string Descripcion { get; set;}
+        public string? Descripcion { get; set;}
 
     }
 }

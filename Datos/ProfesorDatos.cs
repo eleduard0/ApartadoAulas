@@ -103,7 +103,6 @@ namespace ApartadoAulas.Datos
             return respuesta;
         }
         public bool ActualizarProfesor(ProfesorModel model)
-
         {
             bool respuesta;
             try
@@ -156,6 +155,29 @@ namespace ApartadoAulas.Datos
                 respuesta = false;
             }
             return respuesta;
+        }
+        public List<CarreraModel> ListarCarrera()
+        {
+            List<CarreraModel> oLista = new List<CarreraModel>();
+            var cn = new Conexion();
+            using (var conexion = new SqlConnection(cn.getCadenaSql()))
+            {
+                conexion.Open();
+                SqlCommand cmd = new SqlCommand("sp_ListarCarrera", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        oLista.Add(new CarreraModel()
+                        {
+                            IdCarrera = Convert.ToInt32(dr["IdCarrera"]),
+                            Nombre = dr["Nombre"].ToString()
+                        });
+                    }
+                }
+            }
+            return oLista;
         }
     }
 }

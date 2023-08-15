@@ -1,0 +1,68 @@
+﻿@model ProfesorModel
+@{
+    ViewData["Title"] = "Guardar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-dm-6">
+        <div class="card-header">
+            Registrar profesor
+        </div>
+        <div class="card-body">
+
+            <form asp-action="Guardar" asp-controller="Profesor" method="post">
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Nombre del Aula</label>
+                    <input type="text" asp-for="Nombre" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Apellido Paterno</label>
+                    <input type="text" asp-for="ApePa" class="form-control" />
+                </div>
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Apellido Materno</label>
+                    <input type="text" asp-for="ApeMa" class="form-control" />
+                </div>
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Correo electronico</label>
+                    <input type="text" asp-for="Email" class="form-control" />
+                </div>
+
+
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Carrera</label>
+                    <select asp-for="refCarrera.IdCarrera" class="form-control"
+                            asp-items="@(ViewBag.Lista!=null?new SelectList(ViewBag.Lista,"Value","Text"):new List<SelectListItem>())">
+                        <option value="">Seleccione la Carrera...</option>
+
+                    </select>
+
+
+
+
+                    @*<select asp-for="refEdificio.IdEdificio" class="form-control">
+                    <option value="">Seleccione un edificio...</option>
+                    @if (ViewBag.Edificios != null)
+                    {
+                    @foreach (var edificio in ViewBag.Edificios)
+                    {
+                    <option value="@edificio.IdEdificio">@edificio.Nombre</option>
+                    }
+                    }
+                    </select>*@
+                </div>
+
+
+
+
+                <div class="col-md-4 mb3">
+                    <button type="submit" class="btn btn-primary mb-3">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

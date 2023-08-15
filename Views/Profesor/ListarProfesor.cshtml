@@ -1,0 +1,43 @@
+﻿@model List<ProfesorModel>
+@{
+    ViewData["Title"] = "ListarProfesor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-header">
+    Lista de Profesores
+</div>
+<div class="card-body">
+    <a asp-action="Guardar" asp-controller="Profesor" class="btn btn-primary btn-sn">Registrar Nuevo</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Correo electronico</th>
+                <th>Carrera</th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem=>item.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.ApePa)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.ApeMa)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.refCarrera.Nombre)</td>
+
+                    <td>
+                        <a asp-action="Editar" asp-controller="Profesor" asp-route-IdProfesor="@item.IdProfesor" class="btn btn-warning btn-sm">Editar</a>
+                        <a asp-action="Eliminar" asp-controller="Profesor" asp-route-IdProfesor="@item.IdProfesor" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
