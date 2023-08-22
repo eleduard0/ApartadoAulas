@@ -1,8 +1,11 @@
-﻿namespace ApartadoAulas.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ApartadoAulas.Models
 {
     public class CarreraModel
     {
         public int IdCarrera { get; set; }
-        public string Nombre { get; set;}
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        public string Nombre { get; set; }
     }
 }

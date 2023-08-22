@@ -1,0 +1,27 @@
+﻿@model ApartadoAulas.Models.CarreraModel;
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar datos de la carrera</h1>
+<div class="card-body justify-content-center">
+    <form asp-action="Editar" asp-controller="Carrera" method="post">
+
+        <div class="col-md-4 mb-3">
+            <input asp-for="IdCarrera" type="hidden" class="form-control" />
+            <span asp-validation-for="IdCarrera" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="Nombre">Nombre</label>
+            <input asp-for="Nombre" type="text" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <button type="submit" class="btn btn-primary mb-3">Guardar</button>
+        </div>
+    </form>
+</div>
+

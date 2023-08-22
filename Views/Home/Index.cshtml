@@ -3,6 +3,53 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <main class="py-5">
+        <div class="container">
+            <section class="text-center">
+                <h2 class="mb-4">Bienvenido @ViewData["Mensaje"] a la Reserva de Aulas de la Universidad UTS</h2>
+                <p class="lead">Reserva fácilmente las aulas disponibles para tus actividades académicas.</p>
+                <a asp-action="Privacy" asp-controller="Home" class="btn shadow icon-hover" id="button">
+                    Comenzar
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                    </svg>
+                </a>
+            </section>
+
+            <section class="row mt-5">
+                <div class="col-md-4 mb-4">
+                    <a asp-action="ListarInstalaciones" asp-controller="Instalacion" style="text-decoration: none;">
+
+                        <div class="card btn btn-dark">
+                            <img src="/img/aulas.svg" class="card-img-top" alt="Aulas Disponibles" id="imagen">
+                            <div class="card-body">
+                                <h3 class="card-title">Aulas Disponibles</h3>
+                                <p class="card-text">Explora las aulas disponibles y sus características.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <a asp-action="" style="text-decoration: none;">
+                        <div class="card btn btn-dark">
+                            <img src="/img/reservation.svg" class="card-img-top " alt="Mi Reserva" id="imagen">
+                            <div class="card-body">
+                                <h3 class="card-title">Mi Reserva</h3>
+                                <p class="card-text">Administra y consulta tus reservas de aulas.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card btn btn-dark">
+                        <img src="/img/calendar.svg" class="card-img-top" alt="Calendario" id="imagen">
+                        <div class="card-body">
+                            <h3 class="card-title">Calendario</h3>
+                            <p class="card-text">Consulta el calendario de reservas y disponibilidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 </div>

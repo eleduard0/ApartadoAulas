@@ -1,0 +1,30 @@
+﻿@model ApartadoAulas.Models.ProfesorModel
+
+@{
+    ViewData["Title"] = "Eliminar Profesor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-dm-6">
+        <div class="card-header">
+            Eliminar Profesor
+        </div>
+        <div class="card-body">
+            <p>¿Estás seguro de que deseas eliminar a este profesor?</p>
+
+            <div>
+                <h4><strong>Nombre del Profesor:</strong> @Model.Nombre @Model.ApePa @Model.ApeMa<br /> </h4>
+            </div>
+
+            <form asp-action="Eliminar" asp-controller="Profesor" method="post">
+                <input type="hidden" asp-for="IdProfesor" />
+
+                <div class="col-md-4 mb-3">
+                    <button type="submit" class="btn btn-danger mb-3">Eliminar</button>
+                    <a asp-action="ListarProfesores" asp-controller="Profesor" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

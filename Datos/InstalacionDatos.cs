@@ -79,10 +79,10 @@ namespace ProyectoXDDD.Datos
                 {
                     conexion.Open();                
 
-                    SqlCommand cmd = new SqlCommand("InsertarInstalacion", conexion);
+                    SqlCommand cmd = new SqlCommand("SP_InsertarInstalacion", conexion);
                     cmd.Parameters.AddWithValue("Nombre", model.Nombre);
                     cmd.Parameters.AddWithValue("Descripcion", model.Descripcion);
-                    cmd.Parameters.AddWithValue("IdEdificio1", model.refEdificio.IdEdificio);
+                    cmd.Parameters.AddWithValue("IdEdificio", model.refEdificio.IdEdificio);
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
@@ -111,7 +111,7 @@ namespace ProyectoXDDD.Datos
                     cmd.Parameters.AddWithValue("IdInstalacion", model.IdInstalacion);
                     cmd.Parameters.AddWithValue("Nombre", model.Nombre);
                     cmd.Parameters.AddWithValue("Descripcion", model.Descripcion);
-                    cmd.Parameters.AddWithValue("IdEdificio1", model.refEdificio.IdEdificio);
+                    cmd.Parameters.AddWithValue("IdEdificio", model.refEdificio.IdEdificio);
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
@@ -158,7 +158,7 @@ namespace ProyectoXDDD.Datos
             using (var conexion = new SqlConnection(cn.getCadenaSql()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("SP_ListarEdificiosp", conexion); 
+                SqlCommand cmd = new SqlCommand("SP_ListarEdificios", conexion); 
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
@@ -176,6 +176,40 @@ namespace ProyectoXDDD.Datos
             }
 
             return listaEdificios;
+        }
+
+        public List<InstalacionModel> ObtenerListaDeInstalaciones()
+        {
+            List<InstalacionModel> listaInstalaciones = new List<InstalacionModel>();
+            var cn = new Conexion();
+
+            using (var conexion = new SqlConnection(cn.getCadenaSql()))
+            {
+                conexion.Open();
+                SqlCommand cmd = new SqlCommand("SP_ListarInstalacion", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaInstalaciones.Add(new InstalacionModel
+                        {
+                            IdInstalacion = Convert.ToInt32(dr["IdInstalacion"]),
+                            Nombre = dr["Nombre"].ToString(),
+                            Descripcion = dr["Descripcion"].ToString(),
+                            refEdificio = new EdificioModel
+                            {
+                                IdEdificio = Convert.ToInt32(dr["IdEdificio"]),
+                                Nombre = dr["NombreEdificio"].ToString(),
+                                Descripcion = dr["DescripcionEdificio"].ToString()
+                            }
+                        });
+                    }
+                }
+            }
+
+            return listaInstalaciones;
         }
     }
 }

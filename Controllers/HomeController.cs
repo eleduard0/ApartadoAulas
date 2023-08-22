@@ -1,9 +1,14 @@
 ﻿using ApartadoAulas.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace ApartadoAulas.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -15,7 +20,18 @@ namespace ApartadoAulas.Controllers
 
         public IActionResult Index()
         {
+            ClaimsPrincipal claimUser = HttpContext.User;
+            string usuarioNombre = "";
+
+            if (claimUser.Identity.IsAuthenticated)
+            {
+                usuarioNombre=claimUser.Claims.Where(c=>c.Type==ClaimTypes.Name)
+                    .Select(c=>c.Value).SingleOrDefault();
+            }
+
+            ViewData["Mensaje"] = usuarioNombre;
             return View();
+
         }
 
         public IActionResult Privacy()
@@ -27,6 +43,12 @@ namespace ApartadoAulas.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public async Task<IActionResult> CerrarSesion()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "LoginR");
         }
     }
 }

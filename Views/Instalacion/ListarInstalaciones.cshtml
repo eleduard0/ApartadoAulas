@@ -1,0 +1,41 @@
+﻿@model List<InstalacionModel>;
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card col-8">
+    <div class="card-header">
+    Lista de Instalaciones
+    </div>
+    <div class="card-body">
+        <a asp-action="Guardar" asp-controller="Instalacion" class="btn btn-dark btn-sn">Crear Nuevo</a>
+        <table class="table table-striped-success">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Edificio</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem=>item.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.Descripcion)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.refEdificio.Nombre)</td>
+
+                    <td>
+                        <a asp-action="Editar" asp-controller="Instalacion" asp-route-IdInstalacion="@item.IdInstalacion" class="btn btn-warning btn-sm">Editar</a>
+                        <a asp-action="Eliminar" asp-controller="Instalacion" asp-route-IdInstalacion="@item.IdInstalacion" class="btn btn-danger btn-sm">Eliminar</a>
+                        <a asp-action="Guardar" asp-controller="Reserva" asp-route-IdInstalacion="@item.IdInstalacion" class="btn btn-success btn-sm">Solicitar</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

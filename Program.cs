@@ -1,8 +1,30 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
 
+    options.Filters.Add(
+        new ResponseCacheAttribute
+        {
+            NoStore = true,
+            Location = ResponseCacheLocation.None,
+        });  
+
+});
+//configuracion de la autentificacion
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+  .AddCookie(options =>
+  {
+      options.LoginPath = "/LoginR/Login"; //ruta donde iniciara la aplicacion
+      options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+  });
+  
+  
+                                                                                       
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,10 +40,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Instalacion}/{action=Guardar}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

@@ -1,0 +1,43 @@
+﻿@model ApartadoAulas.Models.InstalacionModel;
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-dm-6">
+        <div class="card-header">
+            Editar Instalación
+        </div>
+        <div class="card-body">
+
+            <form asp-action="Editar" asp-controller="Instalacion" method="post">
+                <input type="hidden" asp-for="IdInstalacion" />
+
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Nombre del Aula</label>
+                    <input type="text" asp-for="Nombre" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Descripción del Aula</label>
+                    <input type="text" asp-for="Descripcion" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-check group mb3">
+                    <label class="form-label">Nombre del Edificio</label>
+                    <select asp-for="refEdificio.IdEdificio" class="form-control"
+                            asp-items="@(ViewBag.Lista!=null?new SelectList(ViewBag.Lista,"Value","Text"):new List<SelectListItem>())">
+                        <option value="">Seleccione el Edificio</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb3">
+                    <button type="submit" class="btn btn-primary mb-3">Guardar Cambios</button>
+                    <a asp-action="ListarInstalaciones" asp-controller="Instalacion" class="btn btn-secondary">Cancelar</a>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

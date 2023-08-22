@@ -1,0 +1,56 @@
+﻿@model ApartadoAulas.Models.ProfesorModel;
+
+@{
+    ViewData["Title"] = "Guardar Profesor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-dm-6">
+        <div class="card-header">
+            Guardar Profesor
+        </div>
+        <div class="card-body">
+
+            <form asp-action="Guardar" asp-controller="Profesor" method="post">
+                <div class="col-md-4 form-check group mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" asp-for="Nombre" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-check group mb-3">
+                    <label class="form-label">Apellido Paterno</label>
+                    <input type="text" asp-for="ApePa" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-check group mb-3">
+                    <label class="form-label">Apellido Materno</label>
+                    <input type="text" asp-for="ApeMa" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-check group mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" asp-for="Email" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-check group mb-3">
+                    <label class="form-label">Clave</label>
+                    <input type="password" asp-for="Contrasenia" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-check group mb-3">
+                    <label class="form-label">Carrera</label>
+                    <select asp-for="refCarrera.IdCarrera" class="form-control"
+                            asp-items="@(ViewBag.ListaCarreras != null ? new SelectList(ViewBag.ListaCarreras, "Value", "Text") : new List<SelectListItem>())">
+                        <option value="">Seleccione la Carrera</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <button type="submit" class="btn btn-primary mb-3">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

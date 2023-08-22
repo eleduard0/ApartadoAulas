@@ -1,0 +1,30 @@
+﻿
+@model ApartadoAulas.Models.InstalacionModel
+@{
+    ViewData["Title"] = "Eliminar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-dm-6">
+        <div class="card-header">
+            Eliminar Instalación
+        </div>
+        <div class="card-body">
+            <p>¿Estás seguro de que deseas eliminar esta instalación?</p>
+
+            <div>
+                <h4><strong>Nombre del Aula:</strong> @Model.Nombre<br /> </h4 >
+            </div>
+
+            <form asp-action="Eliminar" asp-controller="Instalacion" method="post">
+                <input type="hidden" asp-for="IdInstalacion" />
+
+                <div class="col-md-4 mb3">
+                    <button type="submit" class="btn btn-danger mb-3">Eliminar</button>
+                    <a asp-action="ListarInstalaciones" asp-controller="Instalacion" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

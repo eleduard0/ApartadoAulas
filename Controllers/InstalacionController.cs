@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProyectoXDDD.Datos;
+using ApartadoAulas.Datos;
 
 namespace ApartadoAulas.Controllers
 {
@@ -14,6 +15,15 @@ namespace ApartadoAulas.Controllers
             var lista = _instalacionDatos.ObtenerListaDeEdificios();
             return View(lista);
         }
+
+        InstalacionModel instalacion = new InstalacionModel();
+        InstalacionDatos __instalacionDatos = new InstalacionDatos();
+        public IActionResult ListarInstalaciones()
+        {
+            var listaInstalaciones = __instalacionDatos.ObtenerListaDeInstalaciones();
+            return View(listaInstalaciones);
+        }
+
 
         //para mostrar guardar
         public IActionResult Guardar()
@@ -45,7 +55,7 @@ namespace ApartadoAulas.Controllers
             var instalacionCreada = _instalacionDatos.GuardarInstalacion(model);
             if (instalacionCreada)
             {
-                return RedirectToAction("Listar");
+                return RedirectToAction("ListarInstalaciones");
             }
             else
             {
@@ -56,25 +66,36 @@ namespace ApartadoAulas.Controllers
 
 
 
-        //para mostrar editar
         public IActionResult Editar(int IdInstalacion)
         {
             InstalacionModel _instalacion = _instalacionDatos.ObtenerInstalacion(IdInstalacion);
-            return View(_instalacion); // Pasar la instalacion obtenido a la vista
+
+            List<EdificioModel> lista = _instalacionDatos.ObtenerListaDeEdificios();
+            List<SelectListItem> listaC = lista.ConvertAll(Item => new SelectListItem()
+            {
+                Text = Item.Nombre.ToString(),
+                Value = Item.IdEdificio.ToString(),
+                Selected = (Item.IdEdificio == _instalacion.refEdificio.IdEdificio) // Marcar el edificio actualmente seleccionado
+            }
+            );
+
+            ViewBag.Lista = listaC;
+
+            return View(_instalacion); // Pasar la instalación obtenida y la lista de edificios a la vista
         }
 
         // Acción de edición POST para actualizar
         [HttpPost]
         public IActionResult Editar(InstalacionModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //     return View();
+            //}
             var respuesta = _instalacionDatos.ActualizarInstalacion(model);
             if (respuesta)
             {
-                return RedirectToAction("Listar");
+                return RedirectToAction("ListarInstalaciones");
             }
             else
             {
@@ -84,12 +105,13 @@ namespace ApartadoAulas.Controllers
         }
 
 
-        //para mostrar eliminar
+        //pa mostar eliminar
         public IActionResult Eliminar(int IdInstalacion)
         {
-            var _instalacion = _instalacionDatos.EliminarInstalacion(IdInstalacion);
-            return View(_instalacionDatos);
+            InstalacionModel _instalacion = _instalacionDatos.ObtenerInstalacion(IdInstalacion);
+            return View(_instalacion);
         }
+
 
         //para eliminar
         [HttpPost]
@@ -98,7 +120,7 @@ namespace ApartadoAulas.Controllers
             var respuesta = _instalacionDatos.EliminarInstalacion(model.IdInstalacion);
             if (respuesta)
             {
-                return RedirectToAction("Listar");
+                return RedirectToAction("ListarInstalaciones");
             }
             else
             {

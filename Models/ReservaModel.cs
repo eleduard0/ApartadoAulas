@@ -2,11 +2,17 @@
 {
     public class ReservaModel
     {
-        public int IdReserva { get; set; }
-        public DateOnly Fecha { get; set; }
-        public TimeOnly HoraInicio { get; set; }
-        public TimeOnly HoraFin { get; set; }
-        public UsuarioModel refUsuario { get; set; }
-        public InstalacionModel refInstalacion { get; set;}
+     
+            public int IdReserva { get; set; }
+            public DateTime Fecha { get; set; } // Cambiado de DateOnly a DateTime
+            public TimeSpan HoraInicio { get; set; }
+            public TimeSpan HoraFin { get; set; }
+            public ProfesorModel refProfesor { get; set; }
+            public InstalacionModel refInstalacion { get; set; }
+            public EdificioModel refEdificio { get; set; }
+
+
+
+
     }
 }

@@ -1,0 +1,87 @@
+﻿@model ApartadoAulas.Models.ReservaModel
+@{
+    ViewData["Title"] = "Guardar Reserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card custom-card">
+                    <div class="card-header custom-card-header">
+                        Guardar Reserva
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Guardar" asp-controller="Reserva" method="post">
+                            <div class="mb-3">
+                                <label class="form-label">Fecha de Reserva</label>
+                                <input type="date" asp-for="Fecha" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Hora de Inicio</label>
+                                <input type="time" asp-for="HoraInicio" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Hora de Fin</label>
+                                <input type="time" asp-for="HoraFin" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Edificio</label>
+                                <select id="edificio" asp-for="refInstalacion.refEdificio.IdEdificio" class="form-select custom-select"
+                                        asp-items="@(ViewBag.ListaEdificios != null ? new SelectList(ViewBag.ListaEdificios, "Value", "Text") : new List<SelectListItem>())">
+                                    <option value="">Seleccione el Edificio</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Instalación</label>
+                                <select asp-for="refInstalacion.IdInstalacion" class="form-select custom-select" id="instalacion">
+                                    <option value="">Seleccione la Instalación</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary" style="width: 100%">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@* Script para cargar dinámicamente las instalaciones según el edificio seleccionado *@
+<script>
+    $(document).ready(function () {
+        // Manejar el evento de cambio en el selector de edificios
+        $("#edificio").change(function () {
+            var edificioId = $(this).val(); // Obtener el valor seleccionado (id del edificio)
+
+            if (edificioId) {
+                // Realizar una solicitud AJAX para obtener las instalaciones basadas en el edificio seleccionado
+                $.ajax({
+                    url: "/Reserva/ObtenerInstalacionesPorEdificio",
+                    type: "POST",
+                    data: { idEdificio: edificioId },
+                    dataType: "json",
+                    success: function (data) {
+                        // Limpiar el selector de instalaciones
+                        $("#instalacion").empty();
+                        // Agregar las opciones de instalaciones
+                        $("#instalacion").append('<option value="">Seleccione la Instalación</option>');
+                        $.each(data, function (i, item) {
+                            $("#instalacion").append('<option value="' + item.value + '">' + item.text + '</option>');
+                        });
+                    },
+                    error: function (response) {
+                        // Manejar errores si es necesario
+                        console.log("Error: " + response.responseText);
+                    }
+                });
+            } else {
+                // Si no se seleccionó un edificio, limpiar el selector de instalaciones
+                $("#instalacion").empty();
+                $("#instalacion").append('<option value="">Seleccione la Instalación</option>');
+            }
+        });
+    });
+
+</script>

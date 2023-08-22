@@ -1,0 +1,26 @@
+﻿@model ApartadoAulas.Models.EdificioModel;
+@{
+    ViewData["Title"] = "Eliminar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card col-8">
+    <div class="card-header">
+        Eliminar Edificio
+    </div>
+    <div class="card-body justify-content-center">
+        <form asp-action="Eliminar" asp-controller="Edificio" method="post">
+            <input asp-for="IdEdificio" type="hidden" class="form-control" />
+            <div class="alert alert-danger" role="alert">
+                ¿Estas seguro de eliminar el edificio: @Html.DisplayTextFor(m=>m.Nombre)?
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <button type="submit" class="btn btn-danger mb-3 btn-sn">Eliminar</button> <br />
+                <a asp-action="Listar" asp-controller="Edificio" class="btn btn-warning btn-sn">Volver a la lista</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+
