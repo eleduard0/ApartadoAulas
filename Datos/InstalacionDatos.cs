@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using System.Data;
 using ApartadoAulas.Datos;
 
-namespace ProyectoXDDD.Datos
+namespace ApartadoAulas.Datos
 {
     public class InstalacionDatos
     {
